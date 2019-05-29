@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+<head>
+    <style>
+        .ch1 {
+            width: 23%;
+            height: 19vh;
+            position: relative;
+            display: inline-block;
+        }
+        .ch2 {
+            width: 99%;
+            bottom: 50px;
+            font-size: 19px;
+            position: absolute;
+        }
+        .bok1 {
+            width: 99%;
+            height: 19vh;
+            position: relative;
+            display: inline-block;
+        }
+        .bok2 {
+            width: 99%;
+            bottom: 50px;
+            font-size: 19px;
+            position: absolute;
+        }
+        .park {
+            width: 24%;
+            height: 19vh;
+            font-size: 19px;
+            background-color: aqua;
+            display: inline-block;
+        }
+        .parks {
+            width: 75%;
+            border:1px solid;
+            padding:10px;
+            display: inline-block;
+        }
+        .bm {
+            width: 49%;
+            height: 29vh;
+            position: relative;
+            display: inline-block;
+        }
+        .bs {
+            width: 99%;
+            height: 23vh;
+            bottom: 10px;
+            font-size: 19px;
+            position: absolute;
+            background-color:aqua;
+        }
+    </style>
+    <script>
+        var tmp=0
+        var list=['주차 시작', '주차 완료', '출차 시작', '출차 완료']
+        function cclick(a) {
+            alert(list[tmp]+'합니다.')
+            tmp++
+            document.getElementById(a).innerHTML=list[tmp]
+            if (tmp>3) {
+                // 종료
+            }
+        }
+    </script>
+</head>
+<body>
+    <div align="center" class="ch1">    <!-- 출구 -->
+        <div class="ch2">
+            출구
+        </div>
+    </div>
+    <div align="center" class="parks">  <!-- 주차하는곳 -->
+        <div class="park"></div>
+        <div class="park"></div>
+        <div class="park"></div>
+        <div class="park"></div>
+    </div>
+    <div align="center" class="bok1">   <!-- 통로 -->
+        <div class="bok2">
+            통로
+        </div>
+    </div>
+    <div align="center" class="ch1">    <!-- 입구 -->
+        <div class="ch2">
+            입구
+        </div>
+    </div>
+    <div align="center" class="parks">  <!-- 주차하는곳 -->
+        <div class="park"></div>
+        <div class="park"></div>
+        <div class="park"></div>
+        <div class="park"></div>
+    </div>
+    <div align="center" class="bm">
+        <button id="btn" onclick="cclick(id)" class="bs">
+            주차 시작
+        </button>
+    </div>
+</body>
+</html>
