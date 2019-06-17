@@ -27,17 +27,17 @@
             font-size: 19px;
             position: absolute;
         }
+        .parks {
+            width: 75%;
+            border:1px solid;
+            padding:10px;
+            display: inline-block;
+        }
         .park {
             width: 24%;
             height: 19vh;
             font-size: 19px;
             background-color: aqua;
-            display: inline-block;
-        }
-        .parks {
-            width: 75%;
-            border:1px solid;
-            padding:10px;
             display: inline-block;
         }
         .bm {
@@ -56,16 +56,35 @@
         }
     </style>
     <script>
-        var tmp=0
-        var list=['주차 시작', '주차 완료', '출차 시작', '출차 완료']
+        const req = new XMLHttpRequest();
+        const req2 = new XMLHttpRequest();
+        const url = "/pipe";
+        var tmp = 0;
+        var idarr = ["id1","id2","id3","id4"];
+        var list = ['주차 시작', '주차 완료', '출차 시작', '출차 완료'];
+        
+        req.open("GET", url);
+        req.send(null);
+        req.addEventListener("load", () => {
+            number = parseInt(req.responseText);
+            document.getElementById(idarr[number-1]).innerHTML="목적지";
+        });
+
         function cclick(a) {
-            alert(list[tmp]+'합니다.')
-            tmp++
-            document.getElementById(a).innerHTML=list[tmp]
+            alert(list[tmp]+"합니다.");
+            tmp++;
+            req2.open("GET", "/guardrail?"+number+"="+tmp);
+            req2.send(null);
+            document.getElementById(a).innerHTML=list[tmp];
             if (tmp>3) {
-                // 종료
+                req2.open("GET", "/apnd?"+number+"=0");
+                req2.send(null);
+                location.href='/';
             }
         }
+    </script>
+    <script>
+        
     </script>
 </head>
 <body>
@@ -77,8 +96,8 @@
     <div align="center" class="parks">  <!-- 주차하는곳 -->
         <div class="park"></div>
         <div class="park"></div>
-        <div class="park"></div>
-        <div class="park"></div>
+        <div style="vertical-align: top;" class="park" id="id1"></div>
+        <div style="vertical-align: top;" class="park" id="id2"></div>
     </div>
     <div align="center" class="bok1">   <!-- 통로 -->
         <div class="bok2">
@@ -93,8 +112,8 @@
     <div align="center" class="parks">  <!-- 주차하는곳 -->
         <div class="park"></div>
         <div class="park"></div>
-        <div class="park"></div>
-        <div class="park"></div>
+        <div style="vertical-align: top;" class="park" id="id3"></div>
+        <div style="vertical-align: top;" class="park" id="id4"></div>
     </div>
     <div align="center" class="bm">
         <button id="btn" onclick="cclick(id)" class="bs">

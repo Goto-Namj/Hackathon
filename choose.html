@@ -56,18 +56,27 @@
         }
     </style>
     <script>
-        var tmp=0
-        var list=['주차 시작', '주차 완료', '출차 시작', '출차 완료']
-        function cclick(a) {
-            alert(list[tmp]+'합니다.')
-            tmp++
-            document.getElementById(a).innerHTML=list[tmp]
-            if (tmp>3) {
-                // 종료
+        const req = new XMLHttpRequest();
+        const url = "/choose";
+        var idarr = ["id1","id2","id3","id4"];
+        var txxt = ["예약 가능","-"];
+        var obj
+        req.open("GET", url);
+        req.send(null);
+        req.addEventListener("load", () => {
+            obj = eval("("+req.responseText+")");
+            for(var i=1; i<5; i++) {
+                document.getElementById(idarr[i-1]).innerHTML=txxt[obj[i]];
             }
-        }
+        });
         function cclick(a) {
-            document.getElementById(a).innerHTML="-"
+            if (obj[a]) {
+                alert('예약이 불가능합니다.');
+            } else {
+                req.open("GET", "/apnd?"+a+"=1");
+                req.send(null);
+                location.href='/parking';
+            }
         }
     </script>
 </head>
@@ -80,8 +89,8 @@
     <div align="center" class="parks">  <!-- 주차하는곳 -->
         <div class="park"></div>
         <div class="park"></div>
-        <div style="vertical-align: top;" class="btndiv"><button id="id1" onclick="location.href='./payment'" class="parkbtn">선택</button></div>
-        <div style="vertical-align: top;" class="btndiv"><button id="id2" onclick="cclick(id)" class="parkbtn">선택</button></div>
+        <div style="vertical-align: top;" class="btndiv"><button id="id1" onclick="cclick(1)" class="parkbtn">예약 가능</button></div>
+        <div style="vertical-align: top;" class="btndiv"><button id="id2" onclick="cclick(2)" class="parkbtn">예약 가능</button></div>
     </div>
     <div align="center" class="bok1">   <!-- 통로 -->
         <div class="bok2">
@@ -96,8 +105,8 @@
     <div align="center" class="parks">  <!-- 주차하는곳 -->
         <div class="park"></div>
         <div class="park"></div>
-        <div style="vertical-align: top;" class="btndiv"><button id="id3" onclick="cclick(id)" class="parkbtn">선택</button></div>
-        <div style="vertical-align: top;" class="btndiv"><button id="id4" onclick="cclick(id)" class="parkbtn">선택</button></div>
+        <div style="vertical-align: top;" class="btndiv"><button id="id3" onclick="cclick(3)" class="parkbtn">예약 가능</button></div>
+        <div style="vertical-align: top;" class="btndiv"><button id="id4" onclick="cclick(4)" class="parkbtn">예약 가능</button></div>
     </div>
 </body>
 </html>
